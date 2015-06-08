@@ -20,7 +20,7 @@ class Universities(models.Model):
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
-	department = models.ManyToManyField(Department,through='DepartmentHasUniversity')
+	departments = models.ManyToManyField(Department,through='DepartmentHasUniversity')
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
@@ -33,7 +33,7 @@ class DepartmentHasUniversity(models.Model):
 	university = models.ForeignKey(Universities)
 	def __unicode__(self):
 		return '{}'.format(self.university)
-		
+
 class Faculty(models.Model):
 	'''
 
