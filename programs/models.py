@@ -1,5 +1,17 @@
 from django.db import models
+from util import savecode
 
+class Department(models.Model):
+	'''
+	This should be populated by admin?
+	'''
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
+
+	
 
 class Universities(models.Model):
 	'''
@@ -8,43 +20,43 @@ class Universities(models.Model):
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
-
-	def __unicode__(self):
-        return '{}'.format(self.description)
-
-
-class Departments(models.Model):
-	'''
-	Mostly Physics.  Maybe something else.  Really 
-	a container for faculty.
-	'''
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-
-
-	def __unicode__(self):
-        return '{}'.format(self.description)
-
-
-class Faculty(models.Model):
-	'''
-	I think this should be its own class.  These
-	will be set by admin for more accurate tracking.
-	'''
-	code = models.CharField(max_length=80,unique=True)
-	description = models.Charfield(max_length=255)
-
+	department = models.ManyToManyField(Department,through='DepartmentHasUniversity')
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
-class DepartmentHasFaculty(models.Model):
-	'''
-	'''
+	class Meta:
+		verbose_name_plural = "Universities"
+
+
+class DepartmentHasUniversity(models.Model):
 	department = models.ForeignKey(Department)
-	faculty = models.ForeignKey(Faculty)
+	university = models.ForeignKey(Universities)
+	def __unicode__(self):
+		return '{}'.format(self.university)
+		
+class Faculty(models.Model):
+	'''
+
+	'''
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+	department = models.ForeignKey(Universities)
+	university = models.ForeignKey(Department)
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
+ 
+	class Meta:
+		verbose_name_plural = "Faculty"
+
+# class DepartmentHasFaculty(models.Model):
+# 	'''
+# 	'''
+# 	department = models.ForeignKey(Department)
+	# faculty = models.ForeignKey(Faculty)
 
 
-class Programs(models.Model):
+class Program(models.Model):
 	'''
 	Programs can be physics, physics research, engineering
 	physics, etc...
@@ -53,20 +65,20 @@ class Programs(models.Model):
 	description = models.CharField(max_length=255)
 
 	def __unicode__(self):
-        return '{}'.format(self.description)
+		return '{}'.format(self.description)
 
 
-class Courses(models.Model):
+class Course(models.Model):
 	'''
 	How do we handle this?  Do we try to have 1 class for
 	sophomore physics?  That doesn't seem right...
 	'''
 
 	code = models.CharField(max_length=80,unique=True)
-	description = models.CharFiled(max_length=255)
+	description = models.CharField(max_length=255)
 
 	def __unicode__(self):
-        return '{}'.format(self.description)
+		return '{}'.format(self.description)
 
 
 class Content(models.Model):
@@ -80,6 +92,9 @@ class Content(models.Model):
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
+
+	class Meta:
+		verbose_name_plural = "Content"
 
 class ContentType(models.Model):
 	'''
