@@ -1,2 +1,3 @@
 physicsgenome/settings.py
 **.pyc
+physicsgenome/migrations/*
