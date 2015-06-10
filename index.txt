@@ -4,7 +4,7 @@ Physics Genome Project Documentation
 Guide:
 ======
 After ensuring that django and mysql-python are installed, create settings.py using tempsettings.py as a guide,
-making sure to that the database listed in settings.py has been created.  Then::
+making sure to that the database listed in settings.py has been created.  Then ::
 
   python manage.py makemigrations projects
   python manage.py migrate

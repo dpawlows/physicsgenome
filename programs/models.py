@@ -23,48 +23,19 @@ class Program(models.Model):
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
-		
-class University(models.Model):
+
+class Faculty(models.Model):
 	'''
-	Tracking the name.  Can be used later for 
-	other stuff.  
+
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
-	departments = models.ManyToManyField(Department)
-	programs = models.ManyToManyField(Program,through='UniversityHasProgram')
 
-	# faculty = models.ManyToManyField(Faculty,through=UniversityHasFaculty)
 	def __unicode__(self):
 		return '{}'.format(self.description)
-
-	class Meta:
-		verbose_name_plural = "Universities"
-
-
-
-# class Faculty(models.Model):
-# 	'''
-
-# 	'''
-# 	code = models.CharField(max_length=80,unique=True)
-# 	description = models.CharField(max_length=255)
-# 	department = models.ForeignKey(Universities)
-# 	university = models.ForeignKey(Department)
-
-# 	def __unicode__(self):
-# 		return '{}'.format(self.description)
  
-# 	class Meta:
-# 		verbose_name_plural = "Faculty"
-
-# class DepartmentHasFaculty(models.Model):
-# 	'''
-# 	'''
-# 	department = models.ForeignKey(Department)
-	# faculty = models.ForeignKey(Faculty)
-
-
+	class Meta:
+		verbose_name_plural = "Faculty"
 
 class Course(models.Model):
 	'''
@@ -106,7 +77,37 @@ class ContentType(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
+class University(models.Model):
+	'''
+	
+	'''
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+	departments = models.ManyToManyField(Department)
+	programs = models.ManyToManyField(Program,through='UniversityHasProgram')
+	courses = models.ManyToManyField(Course,through='UniversityHasCourse')
+	content = models.ManyToManyField(Content,through='UniversityHasContent')
+	faculty = models.ManyToManyField(Faculty,through='UniversityHasFaculty')
 
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
+
+	class Meta:
+		verbose_name_plural = "Universities"
+
+
+
+class UniversityHasFaculty(models.Model):
+	'''
+	'''
+	university = models.ForeignKey(University)
+	department = models.ForeignKey(Department)
+	faculty = models.ForeignKey(Faculty)
+	number = models.IntegerField()
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
 
 
 class UniversityHasProgram(models.Model):
@@ -116,7 +117,25 @@ class UniversityHasProgram(models.Model):
 
 	def __unicode__(self):
 		return '{}'.format(self.university)
-		
+
+class UniversityHasCourse(models.Model):
+	university = models.ForeignKey(University)
+	course = models.ForeignKey(Course)
+	department = models.ForeignKey(Department)
+	program = models.ForeignKey(Program)
+
+	def __unicode__(self):
+		return '{}'.format(self.university)
+
+class UniversityHasContent(models.Model):
+	university = models.ForeignKey(University)
+	content = models.ForeignKey(Content)
+	content_type = models.ForeignKey(ContentType)
+	def __unicode__(self):
+		return '{}'.format(self.university)
+
+
+
 
 # class ProgramHasCourse(models.Model):
 # 	program = models.ForeignKey(Program)
