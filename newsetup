@@ -1,8 +1,0 @@
-create user 'pgenome'@'localhost' indentified by 'mypassword';
-create database physicsgenome;
-grant all on physicsgenome.* to 'pgenome'@'localhost';
-
-
-Need:
-sudo pip install mysql-python
-add export DYLD_LIBRARY_PATH=/usr/local/mysql/lib to .profile
