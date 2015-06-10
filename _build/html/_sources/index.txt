@@ -1,0 +1,39 @@
+Physics Genome Project Documentation
+==================================================
+
+Guide:
+======
+After ensuring that django and mysql-python are installed, create settings.py using tempsettings.py as a guide,
+making sure to that the database listed in settings.py has been created.  Then::
+
+  python manage.py makemigrations projects
+  python manage.py migrate
+
+should setup the database tables and allow you to start populating.
+
+
+.. Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+$project
+========
+
+The goal of the $project is to gather information about physics departments and programs from around the United States 
+in one place in order to facilitate inter-university collaboration.
+
+.. Support
+.. ========
+
+.. Any issues, please let us know at physicsgenome at gmail dot com.
+
