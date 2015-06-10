@@ -1,0 +1,11 @@
+physics genome project
+
+Tracks programs, courses, and content across physics departments.
+
+
+Note that the repo does not include the necessary physicsgenome/settings.py file needed for the project to work.  Instead, an example file 
+called tempsettings.py is 
+included.  This file should be modified as necessary to make the project
+run correctly.  At minimum, the correct database password needs to be 
+specified.
+
