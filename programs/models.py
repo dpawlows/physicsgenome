@@ -1,5 +1,5 @@
 from django.db import models
-from util import savecode
+from util import util
 
 class Department(models.Model):
 	'''
@@ -7,6 +7,7 @@ class Department(models.Model):
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
+	
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
@@ -20,7 +21,10 @@ class Universities(models.Model):
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
-	departments = models.ManyToManyField(Department,through='DepartmentHasUniversity')
+	departments = models.ManyToManyField(Department,through='UniversityHasDepartment')
+	
+
+	# faculty = models.ManyToManyField(Faculty,through=UniversityHasFaculty)
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
@@ -28,26 +32,21 @@ class Universities(models.Model):
 		verbose_name_plural = "Universities"
 
 
-class DepartmentHasUniversity(models.Model):
-	department = models.ForeignKey(Department)
-	university = models.ForeignKey(Universities)
-	def __unicode__(self):
-		return '{}'.format(self.university)
 
-class Faculty(models.Model):
-	'''
+# class Faculty(models.Model):
+# 	'''
 
-	'''
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-	department = models.ForeignKey(Universities)
-	university = models.ForeignKey(Department)
+# 	'''
+# 	code = models.CharField(max_length=80,unique=True)
+# 	description = models.CharField(max_length=255)
+# 	department = models.ForeignKey(Universities)
+# 	university = models.ForeignKey(Department)
 
-	def __unicode__(self):
-		return '{}'.format(self.description)
+# 	def __unicode__(self):
+# 		return '{}'.format(self.description)
  
-	class Meta:
-		verbose_name_plural = "Faculty"
+# 	class Meta:
+# 		verbose_name_plural = "Faculty"
 
 # class DepartmentHasFaculty(models.Model):
 # 	'''
@@ -59,7 +58,7 @@ class Faculty(models.Model):
 class Program(models.Model):
 	'''
 	Programs can be physics, physics research, engineering
-	physics, etc...
+	physics, etc...  Should probably be set by admin.
 	'''
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
@@ -108,11 +107,23 @@ class ContentType(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
-class ProgramHasCourse(models.Model):
+
+
+
+class UniversityHasDepartment(models.Model):
+	university = models.ForeignKey(Universities)
+	department = models.ForeignKey(Department)
 	program = models.ForeignKey(Program)
 
 	def __unicode__(self):
-		return '{}'.format(self.program)
+		return '{}'.format(self.university)
+		
+
+# class ProgramHasCourse(models.Model):
+# 	program = models.ForeignKey(Program)
+
+# 	def __unicode__(self):
+# 		return '{}'.format(self.program)
 
 
 
