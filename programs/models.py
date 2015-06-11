@@ -59,6 +59,7 @@ class Content(models.Model):
 
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
+	content_type = models.ManyToManyField(ContentType,)
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
