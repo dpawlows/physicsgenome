@@ -1,3 +1,4 @@
+
 from django.db import models
 from util import util
 
@@ -47,7 +48,7 @@ class Course(models.Model):
 	description = models.CharField(max_length=255)
 
 	def __unicode__(self):
-		return '{}'.format(self.description)
+		return '{}'.format(self.code)
 
 
 class Content(models.Model):
@@ -77,6 +78,14 @@ class ContentType(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
+class Delivery(models.Model):
+	'''
+	'''
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+	def __unicode__(self):
+		return '{}'.format(self.description)
+
 class University(models.Model):
 	'''
 	
@@ -86,9 +95,9 @@ class University(models.Model):
 	departments = models.ManyToManyField(Department)
 	programs = models.ManyToManyField(Program,through='UniversityHasProgram')
 	courses = models.ManyToManyField(Course,through='UniversityHasCourse')
-	content = models.ManyToManyField(Content,through='UniversityHasContent')
 	faculty = models.ManyToManyField(Faculty,through='UniversityHasFaculty')
-
+	content = models.ManyToManyField(Content,through='UniversityHasContent')
+	
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
@@ -123,25 +132,23 @@ class UniversityHasCourse(models.Model):
 	course = models.ForeignKey(Course)
 	department = models.ForeignKey(Department)
 	program = models.ForeignKey(Program)
+	
+	delivery = models.ForeignKey(Delivery)
 
 	def __unicode__(self):
-		return '{}'.format(self.university)
+		return '{},{}'.format(self.university,self.program)
+
 
 class UniversityHasContent(models.Model):
 	university = models.ForeignKey(University)
+	course = models.ForeignKey(Course)
 	content = models.ForeignKey(Content)
 	content_type = models.ForeignKey(ContentType)
+
 	def __unicode__(self):
-		return '{}'.format(self.university)
+		return '{},{}'.format(self.university,self.course)
 
 
-
-
-# class ProgramHasCourse(models.Model):
-# 	program = models.ForeignKey(Program)
-
-# 	def __unicode__(self):
-# 		return '{}'.format(self.program)
 
 
 
