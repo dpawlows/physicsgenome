@@ -50,23 +50,6 @@ class Course(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.code)
 
-
-class Content(models.Model):
-	'''
-	This might get ugly and difficult to track if we don't
-	limit the entries.
-	'''
-
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-	content_type = models.ManyToManyField(ContentType,)
-
-	def __unicode__(self):
-		return '{}'.format(self.description)
-
-	class Meta:
-		verbose_name_plural = "Content"
-
 class ContentType(models.Model):
 	'''
 	Something like math, experimental physics, 
@@ -78,6 +61,24 @@ class ContentType(models.Model):
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
+		
+class Content(models.Model):
+	'''
+	This might get ugly and difficult to track if we don't
+	limit the entries.
+	'''
+
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+	content_type = models.ManyToManyField(ContentType)
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
+
+	class Meta:
+		verbose_name_plural = "Content"
+
+
 
 class Delivery(models.Model):
 	'''
