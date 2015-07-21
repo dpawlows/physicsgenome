@@ -6,7 +6,7 @@ class University(models.Model):
 	'''
 	'''
 	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
+	description = models.CharField('name',max_length=255) #Added name as verbose_name
 
 	def __unicode__(self):
 		return '{}'.format(self.description)
@@ -19,7 +19,7 @@ class Department(models.Model):
 	
 	'''
 	code = models.CharField(max_length=80)
-	description = models.CharField(max_length=255)
+	description = models.CharField('name',max_length=255) #verbose_name
 	universities = models.ForeignKey(University)
 	def __unicode__(self):
 		return '{}'.format(self.description)

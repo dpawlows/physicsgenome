@@ -2,13 +2,33 @@ from django.contrib import admin
 
 from programs.models import *
 
-# class UniversityInlineAdmin(admin.TabularInline):
-# 	model = University.courses.through
+class ProgramInline(admin.TabularInline):
+	model = Program
+	extra = 3
 
-# class UniversityAdmin(admin.ModelAdmin):
-# 	fields = ['description','departments']
-# 	inlines = (UniversityInlineAdmin,)
+class DepartmentAdmin(admin.ModelAdmin):
+	fieldsets = [
+	(None, {'fields':['description','universities']}),
+	]
 
-admin.site.register(University)
+	inlines = [ProgramInline]
+
+class DepartmentInline(admin.TabularInline):
+	model = Department
+	extra = 0
+	fields = ('description',)
+
+class UniversityAdmin(admin.ModelAdmin):
+	fieldsets = [
+	(None, {'fields':['description'],
+		'classes':('extrapretty',)
+		}),
+	]
+	
+
+	inlines = [DepartmentInline]
+
+admin.site.register(University,UniversityAdmin)
 admin.site.register(Program)
-admin.site.register(Department)
+admin.site.register(Department,DepartmentAdmin)
+
