@@ -1,0 +1,4 @@
+#### Delete this thing before production please!
+
+drop database physicsgenome;
+create database physicsgenome;

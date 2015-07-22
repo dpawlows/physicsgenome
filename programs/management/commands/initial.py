@@ -7,6 +7,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 		u1 = save_code(University,'Eastern Michigan University')
+		u2 = save_code(University, 'Michigan State University')
 
 		d1 = save_code(Department,'Physics',universities=u1)
 

@@ -86,12 +86,11 @@ class Course(models.Model):
 
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField(max_length=255)
-	delivery = models.ManyToManyField(Delivery)
-	content = models.ManyToManyField(Content)
-	contentType = models.ManyToManyField(ContentType)
-	prerequisite = models.ManyToManyField('self')
+	delivery = models.ManyToManyField(Delivery,blank=True)
+	content = models.ManyToManyField(Content,blank=True)
+	contentType = models.ManyToManyField(ContentType,blank=True)
+	prerequisite = models.ManyToManyField('self',blank=True,symmetrical=False)
 	
-
 
 	def __unicode__(self):
 		return '{}'.format(self.code)
