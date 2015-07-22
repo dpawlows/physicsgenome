@@ -7,11 +7,15 @@ class ProgramInline(admin.TabularInline):
 	extra = 3
 
 class DepartmentAdmin(admin.ModelAdmin):
+
 	fieldsets = [
 	(None, {'fields':['description','universities']}),
 	]
-
+	list_display = ('description','universities',)
 	inlines = [ProgramInline]
+
+	
+
 
 class DepartmentInline(admin.TabularInline):
 	model = Department

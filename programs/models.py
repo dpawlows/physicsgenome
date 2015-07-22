@@ -21,6 +21,10 @@ class Department(models.Model):
 	code = models.CharField(max_length=80)
 	description = models.CharField('name',max_length=255) #verbose_name
 	universities = models.ForeignKey(University)
+	
+	def universities_name(self):
+		return self.universities
+
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
