@@ -78,14 +78,20 @@ class Delivery(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
+class CourseType(models.Model):
+	code = models.CharField(max_length=80)
+
+	def __unicode__(self):
+		return '{}'.format(self.code)
+
 class Course(models.Model):
 	'''
-	How do we handle this?  Do we try to have 1 class for
-	sophomore physics?  That doesn't seem right...
+	We filter on code, right?
 	'''
 
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
+	code = models.ManyToManyField(CourseType)
+	name = models.CharField(max_length=80,null=True)
+	description = models.CharField(max_length=255,blank=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
 	contentType = models.ManyToManyField(ContentType,blank=True)

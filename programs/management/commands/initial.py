@@ -21,10 +21,32 @@ class Command(BaseCommand):
 		f2 = save_code(Faculty,'Adjunct')
 		f3 = save_code(Faculty,'Lecturer')
 
+		ct1 = save_code(CourseType,'Mechanics 1')
+		ct2 = save_code(CourseType,'Mechanics 2')
+		ct3 = save_code(CourseType,'Mechanics 3')
+		ct4 = save_code(CourseType,'Electricity and Magnetism 1')
+		ct5 = save_code(CourseType,'Electricity and Magnetism 2')
+		ct6 = save_code(CourseType,'Electricity and Magnetism 3')
+		ct7 = save_code(CourseType,'Modern Physics 1')
+		ct8 = save_code(CourseType,'Modern Physics 2')
+		ct9 = save_code(CourseType,'Quantum Mechanics 1')
+		ct10 = save_code(CourseType,'Quantum Mechanics 2')
+		ct11 = save_code(CourseType,'Computational Physics 1')	
+		ct12 = save_code(CourseType,'Computational Physics 2')	
+		ct13 = save_code(CourseType,'Acoustics')
+		ct12 = save_code(CourseType,'Fluid Dynamics')
+		ct13 = save_code(CourseType,'Thermodynamics')
+		ct14 = save_code(CourseType,'Optics')	
+		ct15 = save_code(CourseType,'Mathematical Methods')
+		ct16 = save_code(CourseType,'Senior Project')
+		ct17 = save_code(CourseType,'Research')
+		ct18 = save_code(CourseType,'Seminar')
+		ct19 = save_code(CourseType,'Electronics')
 
-		c1 = save_code(Course,'Mechanics 1',description='Generally 1st term calculus based mechanics')
-		c2 = save_code(Course,'Mechanics 2',description='Intermediate level mechanics')
-		c3 = save_code(Course,'Electricity and Magnetism 1',description='Generally 1st year calculus\
+
+		c1 = save_code(Course,ct1,description='Generally 1st term calculus based mechanics')
+		c2 = save_code(Course,ct2,description='Intermediate level mechanics')
+		c3 = save_code(Course,ct4,'Electricity and Magnetism 1',description='Generally 1st year calculus\
 			based EM')
 
 		p1.courses.add(c1)
