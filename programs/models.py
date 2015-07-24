@@ -5,6 +5,7 @@ from util import util
 class University(models.Model):
 	'''
 	'''
+
 	code = models.CharField(max_length=80,unique=True)
 	description = models.CharField('name',max_length=255) #Added name as verbose_name
 
@@ -13,7 +14,7 @@ class University(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Universities"
-
+		
 class Department(models.Model):
 	'''
 	
