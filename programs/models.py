@@ -90,17 +90,18 @@ class Course(models.Model):
 	We filter on code, right?
 	'''
 
-	code = models.ManyToManyField(CourseType)
+	code = models.CharField(max_length=80,unique=True)
+	courseType = models.ManyToManyField(CourseType)
 	name = models.CharField(max_length=80,null=True)
 	description = models.CharField(max_length=255,blank=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
 	contentType = models.ManyToManyField(ContentType,blank=True)
 	prerequisite = models.ManyToManyField('self',blank=True,symmetrical=False)
-	
+	# university = models.ForeignKey(University)
 
 	def __unicode__(self):
-		return '{}'.format(self.code)
+		return '{}'.format(self.name)
 
 class Program(models.Model):
 	'''
