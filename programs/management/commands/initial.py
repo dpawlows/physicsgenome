@@ -44,21 +44,19 @@ class Command(BaseCommand):
 		ct18 = save_code(CourseType,'Seminar')
 		ct19 = save_code(CourseType,'Electronics')
 
-		c1 = save_course(Course,'PHY223',u1.pk,
+		c1 = save_course(Course,u1,'PHY223',
 			description='Generally 1st term calculus based mechanics',
+			courseType=ct1
 			)
-		pdb.set_trace()
-		c2 = save_course(Course,'PHY224',u1.pk,
-			description='Intermediate level mechanics')
-		c3 = save_course(Course,'PHY350',u1.pk,
+		c2 = save_course(Course,u1,'PHY224',
+			description='Intermediate level mechanics',
+			courseType=ct4
+			)
+		c3 = save_course(Course,u1,'PHY350',
 			description='Generally 1st year calculus\
-			based EM')
-
-
-
-		c1.courseType.add(ct1)
-		c2.courseType.add(ct2)
-		c3.courseType.add(ct5)
+			based EM',
+			courseType=ct5
+			)
 
 
 		p1.courses.add(c1)

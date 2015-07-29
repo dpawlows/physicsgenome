@@ -87,19 +87,21 @@ class CourseType(models.Model):
 
 class Course(models.Model):
 	'''
-	We filter on code, right?
 	'''
+	# Using code to make sure courses at different universities are unique- otherwise its easy to 
+	# have duplicates of a single university's course.
+	# Name, description, etc don't need to be unique.
 
 	code = models.CharField(max_length=80,unique=True)
-	courseType = models.ManyToManyField(CourseType)
-	name = models.CharField(max_length=80,null=True)
-	description = models.CharField(max_length=255,blank=True)
+	courseType = models.ForeignKey(CourseType,blank=True,null=True)
+	name = models.CharField(max_length=80)
+	description = models.CharField(max_length=255,blank=True,null=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
 	contentType = models.ManyToManyField(ContentType,blank=True)
 	prerequisite = models.ManyToManyField('self',blank=True,symmetrical=False)
-	# university = models.ForeignKey(University)
-
+	university = models.ForeignKey(University)
+	
 	def __unicode__(self):
 		return '{}'.format(self.name)
 
