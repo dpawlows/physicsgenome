@@ -49,7 +49,7 @@ def save_course(object,u_object,i_name,*args,**kwargs):
         return object.objects.get(code=code)
     except:
         new_object = object(code=code)
-        new_object.name = i_name
+        # new_object.name = i_name
        
         if hasattr(new_object, 'description'):
             new_object.description=description

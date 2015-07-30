@@ -2,7 +2,8 @@ from django.contrib import admin
 from django import forms
 from programs.models import *
 from programs.util.util import chopr
-
+from django.db import IntegrityError
+import pdb
 
 class ProgramAdmin(admin.ModelAdmin):
 
@@ -50,6 +51,8 @@ class UniversityAdmin(admin.ModelAdmin):
 	def save_model(self,request,obj,form,change):
 		obj.code = obj.description.replace(' ','_')
 		obj.save()
+		
+
 
 class CourseForm(forms.ModelForm):
 	
@@ -60,18 +63,28 @@ class CourseForm(forms.ModelForm):
 		super(CourseForm,self).__init__(*args,**kwargs)
 		self.fields['prerequisite'].queryset = Course.objects.exclude(id__exact=self.instance.id)
 
+	def clean(self):
+		cleaned_data = self.cleaned_data
+		if Course.objects.filter(code=cleaned_data['code'],university=cleaned_data['university']).exists():
+			raise forms.ValidationError('The course already exists at this university.')
+			# pdb.set_trace()	
+
+		return cleaned_data
+
 class CourseAdmin(admin.ModelAdmin):
 	form = CourseForm
 
-	def add_view(self, request, extra_context=None):
-		self.exclude = ('code', )
-		return super(CourseAdmin, self).add_view(request, extra_context=None)
+	# def add_view(self, request, extra_context=None):
+	# 	'''dont show code as it shouldn't be necessary to change- should be set by name'''
+		# self.exclude = ('code', )
+		# return super(CourseAdmin, self).add_view(request, extra_context=None)
 	
-	def change_view(self,request,object_id,extra_context=None):
-		self.exclude = ()
-		return super(CourseAdmin, self).change_view(request, object_id,extra_context=None)
+	# def change_view(self,request,object_id,extra_context=None):
+	# 	self.exclude = ()
+	# 	return super(CourseAdmin, self).change_view(request, object_id,extra_context=None)
 
-	list_display = ('name',)
+	# list_display = ('name',)
+
 
 	def save_model(self,request,obj,form,change):
 		if obj.code == '':

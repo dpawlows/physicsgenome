@@ -105,9 +105,9 @@ class Course(models.Model):
 	# have duplicates of a single university's course.
 	# Name, description, etc don't need to be unique.
 
-	code = models.CharField(max_length=80,unique=True)
+	code = models.CharField('name',max_length=80)
 	courseType = models.ForeignKey(CourseType,blank=True,null=True)
-	name = models.CharField(max_length=80)
+	# name = models.CharField(max_length=80)
 	description = models.CharField(max_length=255,blank=True,null=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
@@ -121,7 +121,7 @@ class Course(models.Model):
 		unique_together = ('code','university')
 
 	def __unicode__(self):
-		return '{}'.format(self.name)
+		return '{}'.format(self.code)
 
 
 
