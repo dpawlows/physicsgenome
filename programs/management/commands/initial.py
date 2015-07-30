@@ -10,10 +10,10 @@ class Command(BaseCommand):
 		u1 = save_code(University,'Eastern Michigan University')
 		u2 = save_code(University, 'Michigan State University')
 
-		d1 = save_code(Department,'Physics',universities=u1)
+		d1 = save_code(Department,'Physics',university=u1)
 
-		p1 = save_code(Program,'Physics Research',departments=d1)
-		p2 = save_code(Program,'Physics',departments=d1)
+		p1 = save_code(Program,'Physics Research',department=d1)
+		p2 = save_code(Program,'Physics',department=d1)
 		
 
 

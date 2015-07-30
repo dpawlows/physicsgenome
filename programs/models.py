@@ -21,7 +21,7 @@ class Department(models.Model):
 	'''
 	code = models.CharField(max_length=80)
 	description = models.CharField('name',max_length=255) #verbose_name
-	universities = models.ForeignKey(University)
+	university = models.ForeignKey(University)
 	
 	def universities_name(self):
 		return self.universities
@@ -91,8 +91,8 @@ class Program(models.Model):
 	physics, etc...  Should probably be set by admin.
 	'''
 	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-	departments = models.ForeignKey(Department)
+	description = models.CharField('program',max_length=255)
+	department = models.ForeignKey(Department)
 	
 
 	def __unicode__(self):
