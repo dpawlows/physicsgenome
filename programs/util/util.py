@@ -30,8 +30,8 @@ def save_code(object, i_code, *args, **kwargs):
 
 
 def save_course(object,u_object,i_name,*args,**kwargs):
-    '''Need to supply the associated university pk in order to make sure we have a unique
-    code
+    '''Need to supply the associated university in order to make sure we have a unique
+    is unique
 
     '''
 
@@ -40,30 +40,24 @@ def save_course(object,u_object,i_name,*args,**kwargs):
     else:
         description = i_name
 
-    id = chopr('00'+str(u_object.pk),3)
-
+    # newid = chopr('000'+str(u_object.pk),3)
     name = i_name.replace(' ','_')
-    code = id+'_'+name
+    # code = newid+'_'+name
+    code = name
 
     try:
         return object.objects.get(code=code)
     except:
         new_object = object(code=code)
-        new_object.name = name
+        new_object.name = i_name
        
-
         if hasattr(new_object, 'description'):
             new_object.description=description
         
         for attribute in kwargs:
             attribute = setattr(new_object, attribute, kwargs[attribute]) 
 
-        if hasattr(new_object,'university'):
-           new_object.university = u_object
-
-        pdb.set_trace()
-
-
+        new_object.university = u_object
         new_object.save()
 
 

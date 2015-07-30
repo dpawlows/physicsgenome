@@ -1,6 +1,16 @@
 from django.contrib import admin
 from django import forms
 from programs.models import *
+from programs.util.util import chopr
+
+
+class ProgramAdmin(admin.ModelAdmin):
+
+	# fieldsets = [
+	# (None,{'fields':['description','departments.universities']}),
+	# ]
+	list_display = ('description','departments')
+
 
 class ProgramInline(admin.TabularInline):
 	model = Program
@@ -64,9 +74,13 @@ class CourseAdmin(admin.ModelAdmin):
 	list_display = ('name',)
 
 	def save_model(self,request,obj,form,change):
-		if obj.code == '': #Not sure about this.  How should code and description be setup?
+		if obj.code == '':
+			# newid = chopr('000'+str(obj.university.id),3)
 			obj.code = obj.name.replace(' ','_')
+
 		obj.save()
+
+
 
 admin.site.register(University,UniversityAdmin)
 admin.site.register(Program)

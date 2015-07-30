@@ -85,6 +85,19 @@ class CourseType(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.code)
 
+class Program(models.Model):
+	'''
+	Programs can be physics, physics research, engineering
+	physics, etc...  Should probably be set by admin.
+	'''
+	code = models.CharField(max_length=80,unique=True)
+	description = models.CharField(max_length=255)
+	departments = models.ForeignKey(Department)
+	
+
+	def __unicode__(self):
+		return '{}'.format(self.description)
+
 class Course(models.Model):
 	'''
 	'''
@@ -100,23 +113,17 @@ class Course(models.Model):
 	content = models.ManyToManyField(Content,blank=True)
 	contentType = models.ManyToManyField(ContentType,blank=True)
 	prerequisite = models.ManyToManyField('self',blank=True,symmetrical=False)
+	programs = models.ManyToManyField(Program)
 	university = models.ForeignKey(University)
-	
+
+		
+	class Meta:
+		unique_together = ('code','university')
+
 	def __unicode__(self):
 		return '{}'.format(self.name)
 
-class Program(models.Model):
-	'''
-	Programs can be physics, physics research, engineering
-	physics, etc...  Should probably be set by admin.
-	'''
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-	departments = models.ForeignKey(Department)
-	courses = models.ManyToManyField(Course)
 
-	def __unicode__(self):
-		return '{}'.format(self.description)
 
 
 

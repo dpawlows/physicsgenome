@@ -59,11 +59,11 @@ class Command(BaseCommand):
 			)
 
 
-		p1.courses.add(c1)
-		p1.courses.add(c2)
-		p1.courses.add(c3)
-		p2.courses.add(c1)
-		p2.courses.add(c2)
+		c1.programs.add(p1)
+		c1.programs.add(p2)
+		c2.programs.add(p1)
+		c2.programs.add(p2)
+		c3.programs.add(p1)
 
 
 		con1 = save_code(Content,'Newtons Laws')
