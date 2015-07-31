@@ -1,13 +1,12 @@
-# from django.contrib.admin import TabularInline, StackedInline, site
-# from Nested_inlines.admin import NestedModelAdmin,NestedStackedInline,NestedTabularInline
-from django.contrib import admin
+from django.contrib.admin import TabularInline, StackedInline, site
+from super_inlines.admin import SuperModelAdmin,SuperInlineModelAdmin
 from django import forms
 from programs.models import *
 from programs.util.util import chopr
 
 import pdb
 
-class ProgramAdmin(admin.ModelAdmin):
+class ProgramAdmin(SuperModelAdmin):
 
 	# fieldsets = [
 	# (None,{'fields':['description','departments.universities']}),
@@ -19,11 +18,11 @@ class ProgramAdmin(admin.ModelAdmin):
 		return obj.department.university
 	get_university.short_description = 'University'
 
-class ProgramInline(admin.TabularInline):
+class ProgramInline(SuperInlineModelAdmin,TabularInline):
 	model = Program
-	extra = 3
+	# extra = 3
 
-class DepartmentAdmin(admin.ModelAdmin):
+class DepartmentAdmin(SuperModelAdmin):
 
 	fieldsets = [
 	(None, {'fields':['description','university']}),
@@ -39,18 +38,20 @@ class DepartmentAdmin(admin.ModelAdmin):
 		obj.save()
 
 
-class DepartmentInline(admin.TabularInline):
+class DepartmentInline(SuperInlineModelAdmin,StackedInline):
 	model = Department
 	extra = 0
 	fields = ('description',)
 
-class UniversityAdmin(admin.ModelAdmin):
+	inlines = (ProgramInline,)
+
+class UniversityAdmin(SuperModelAdmin):
 	fieldsets = [
 	(None, {'fields':['description','code'],
 		'classes':('extrapretty',)
 		}),
 	]
-	inlines = [DepartmentInline]
+	inlines = [DepartmentInline,]
 
 	search_fields = ('description',)
 
@@ -77,7 +78,7 @@ class CourseForm(forms.ModelForm):
 
 		return cleaned_data
 
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(SuperModelAdmin):
 	form = CourseForm
 
 	list_display = ('code','university',)
@@ -93,8 +94,8 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(University,UniversityAdmin)
-admin.site.register(Program,ProgramAdmin)
-admin.site.register(Department,DepartmentAdmin)
-admin.site.register(Course,CourseAdmin)
+site.register(University,UniversityAdmin)
+site.register(Program,ProgramAdmin)
+site.register(Department,DepartmentAdmin)
+site.register(Course,CourseAdmin)
 
