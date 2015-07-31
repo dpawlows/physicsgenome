@@ -1,8 +1,10 @@
+# from django.contrib.admin import TabularInline, StackedInline, site
+# from Nested_inlines.admin import NestedModelAdmin,NestedStackedInline,NestedTabularInline
 from django.contrib import admin
 from django import forms
 from programs.models import *
 from programs.util.util import chopr
-from django.db import IntegrityError
+
 import pdb
 
 class ProgramAdmin(admin.ModelAdmin):
@@ -11,8 +13,8 @@ class ProgramAdmin(admin.ModelAdmin):
 	# (None,{'fields':['description','departments.universities']}),
 	# ]
 	list_display = ('description','get_university')
-	search_fields=('description',)
-
+	search_fields=('description','department__university__code')
+	list_filter = ('department__university',)
 	def get_university(self,obj):
 		return obj.department.university
 	get_university.short_description = 'University'
@@ -29,7 +31,7 @@ class DepartmentAdmin(admin.ModelAdmin):
 	list_display = ('description','university',)
 	inlines = [ProgramInline]
 
-	search_fields = ('university',)
+	search_fields = ('university__description','description')
 	list_filter = ('description','university')
 
 	def save_model(self,request,obj,form,change):
