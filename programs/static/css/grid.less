@@ -1,0 +1,58 @@
+// Defaults which you can freely override
+@column-width: 60;
+@gutter-width: 20;
+@columns: 12;
+
+// Utility variable Ñ you should never need to modify this
+@_gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+
+// Set @total-width to 100% for a fluid layout
+@total-width: @_gridsystem-width;
+
+
+//////////
+// GRID //
+//////////
+
+body {
+	width: 100%;
+	float: left;
+}
+
+.row(@columns:@columns) {
+	display: inline-block;
+	overflow: hidden;
+	width: @total-width*((@gutter-width + @_gridsystem-width)/@_gridsystem-width);
+	margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1);
+}
+
+.column(@x,@columns:@columns) {
+	display: inline;
+	float: left;
+	overflow: hidden;
+	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @_gridsystem-width);
+	margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
+}
+
+.g1{ .column(1); }
+.g2{ .column(2); }
+.g3{ .column(3); }
+.g4{ .column(4); }
+.g5{ .column(5); }
+.g6{ .column(6); }
+.g7{ .column(7); }
+.g8{ .column(8); }
+.g9{ .column(9); }
+.g10{ .column(10); }
+.g11{ .column(11); }
+.g12{ .column(12); }
+.c12{ width: 960px; margin: 0 auto; }
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}

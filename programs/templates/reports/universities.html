@@ -1,0 +1,21 @@
+{% extends '_layout.html' %}
+{%block sub_title%}
+<h2>Universities</h2>
+{%endblock%}
+{%block content%}
+<table class='ch-datagrid tablesorter'>
+	<thead>
+		<r>
+			<th>University</th>
+		</tr>
+	</thead>
+	{% for u in universities %}
+	    <tr>
+	    	<td> <a class='ch-btn ch-btn-small ' 
+			href='/universities/{{u.id}}'
+			title='{{u.description}}'>{{u.description}}</a></td>
+	    </tr>
+    {% endfor %}
+</table>
+
+{%endblock%}
