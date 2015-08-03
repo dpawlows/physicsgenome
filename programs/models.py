@@ -22,6 +22,9 @@ class Department(models.Model):
 	code = models.CharField(max_length=80)
 	description = models.CharField('name',max_length=255) #verbose_name
 	university = models.ForeignKey(University)
+	tenured = models.IntegerField('tenure-track faculty',blank=True,null=True)
+	nonTenured = models.IntegerField('non tenure-track faculty',blank=True,null=True)
+
 	
 	def universities_name(self):
 		return self.universities
@@ -29,18 +32,6 @@ class Department(models.Model):
 	def __unicode__(self):
 		return '{}'.format(self.description)
 
-class Faculty(models.Model):
-	'''
-
-	'''
-	code = models.CharField(max_length=80,unique=True)
-	description = models.CharField(max_length=255)
-
-	def __unicode__(self):
-		return '{}'.format(self.description)
- 
-	class Meta:
-		verbose_name_plural = "Faculty"
 
 class ContentType(models.Model):
 	'''
@@ -107,7 +98,6 @@ class Course(models.Model):
 
 	code = models.CharField('name',max_length=80)
 	courseType = models.ForeignKey(CourseType,blank=True,null=True)
-	# name = models.CharField(max_length=80)
 	description = models.CharField(max_length=255,blank=True,null=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
