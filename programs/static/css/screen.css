@@ -76,3 +76,13 @@ a{
 a:hover{
     color:#333;
 }
+
+#expand { border-collapse:collapse;}
+#expand h4 { margin:0px; padding:0px;}      
+#expand img { float:right;}
+#expand ul { margin:10px 0 10px 40px; padding:0px;}
+#expand th { font-size:120%; background:repeat-x scroll center left; padding:7px 15px; text-align:left;}
+#expand td { background: none repeat-x scroll center left; color:#000; padding:7px 15px; width:200px;}
+#expand tr.odd td { background:#fff  repeat-x scroll center left; cursor:pointer; }
+#expand div.arrow { background:transparent url(images/arrows.png) no-repeat scroll 0px -16px; width:16px; height:16px; display:block;}
+#expand div.up { background-position:0px 0px;}

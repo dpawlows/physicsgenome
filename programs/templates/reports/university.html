@@ -1,0 +1,45 @@
+{% extends '_layout.html' %}
+
+{%block sub_title%}
+<h2>{{university.description}}</h2>
+{%endblock%}
+{%block content%}
+<!-- class='ch-datagrid tablesorter' -->
+<table  id='expand'>
+	<tr>
+		<th>Departments</th>
+		<th></th>
+	</tr>
+
+	{% for d in departments %}
+	<tr>
+		<td>{{d.description}}</td>
+		<td><div class="arrow"></div></td>
+	</td>
+	<tr>
+		<td colspan="2">
+			<ul>
+				<li>
+					Tenure-Track Faculty: 
+					{{d.tenured}}
+				</li>
+				<li>
+					Non Tenure-Track Faculty:
+					{{d.nonTenured}}
+				</li>
+				{% for p in programs %}
+				<li> {{p.description}}</li>
+				{% endfor%}
+		
+	        </ul>
+		</td>
+	</tr>
+
+<!-- 	    	<td> <a class='ch-btn ch-btn-small ' 
+			href='/universities/{{u.id}}'
+			title='{{u.description}}'>{{u.description}}</a></td>
+ -->
+    {% endfor %}
+</table>
+
+{%endblock%}
