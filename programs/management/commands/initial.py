@@ -10,17 +10,12 @@ class Command(BaseCommand):
 		u1 = save_code(University,'Eastern Michigan University')
 		u2 = save_code(University, 'Michigan State University')
 
-		d1 = save_code(Department,'Physics',university=u1)
-
+		d1 = save_code(Department,'Physics',university=u1,tenured=11)
+		d2 = save_code(Department,'Chemistry',university=u1,tenured=15)
 		p1 = save_code(Program,'Physics Research',department=d1)
 		p2 = save_code(Program,'Physics',department=d1)
-		
-
-
-
-		f1 = save_code(Faculty,'Faculty')
-		f2 = save_code(Faculty,'Adjunct')
-		f3 = save_code(Faculty,'Lecturer')
+		p3 = save_code(Program,'Engineering Physics',department=d1)
+		p4 = save_code(Program,'Professional Chemistry',department=d2)
 
 		ct1 = save_code(CourseType,'Mechanics 1')
 		ct2 = save_code(CourseType,'Mechanics 2')
@@ -46,7 +41,7 @@ class Command(BaseCommand):
 
 		c1 = save_course(Course,u1,'PHY223',
 			description='Generally 1st term calculus based mechanics',
-			courseType=ct1
+			courseType=ct1,
 			)
 		c2 = save_course(Course,u1,'PHY224',
 			description='Intermediate level mechanics',
@@ -70,5 +65,5 @@ class Command(BaseCommand):
 		con2 = save_code(Content,'Kinematics')
 		ct1 = save_code(ContentType,'Theoretical')
 		dl1 = save_code(Delivery,'Lecture')
-
+		
 

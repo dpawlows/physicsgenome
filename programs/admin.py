@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from programs.models import *
-
+import pdb
 
 class ProgramAdmin(admin.ModelAdmin):
 
@@ -43,7 +43,8 @@ class DepartmentAdmin(admin.ModelAdmin):
 	list_filter = ('description','university')
 
 	def save_model(self,request,obj,form,change):
-		obj.code = obj.description.replace(' ','_')
+		if obj.code == '':
+			obj.code = obj.name.replace(' ','_')
 		obj.save()
 
 
@@ -83,9 +84,11 @@ class CourseForm(forms.ModelForm):
 
 	def clean(self):
 		#Need to handle validation for unique_together
+
 		cleaned_data = self.cleaned_data
-		if Course.objects.filter(code=cleaned_data['code'],university=cleaned_data['university']).exists():
-			raise forms.ValidationError('The course already exists at this university.')
+		if self.instance.pk is None:
+			if Course.objects.filter(code=cleaned_data['code'],university=cleaned_data['university']).exists():
+				raise forms.ValidationError('The course already exists at this university.')
 
 		return cleaned_data
 
