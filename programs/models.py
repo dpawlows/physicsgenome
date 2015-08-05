@@ -101,7 +101,6 @@ class Course(models.Model):
 	description = models.CharField(max_length=255,blank=True,null=True)
 	delivery = models.ManyToManyField(Delivery,blank=True)
 	content = models.ManyToManyField(Content,blank=True)
-	contentType = models.ManyToManyField(ContentType,blank=True)
 	prerequisite = models.ManyToManyField('self',blank=True,symmetrical=False)
 	programs = models.ManyToManyField(Program)
 	university = models.ForeignKey(University)

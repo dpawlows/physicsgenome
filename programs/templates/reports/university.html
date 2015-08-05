@@ -1,45 +1,52 @@
 {% extends '_layout.html' %}
-
 {%block sub_title%}
 <h2>{{university.description}}</h2>
 {%endblock%}
 {%block content%}
 <!-- class='ch-datagrid tablesorter' -->
-<table  id='expand'>
-	<tr>
-		<th>Departments</th>
-		<th></th>
-	</tr>
 
+<!-- <h2>Departments</h2> -->
+<!-- <ul>
+	{% for d in departments%}
+	<ul>
+		<li><h3>{{d.department.description}}</h3></li>
+	
+		<li>Tenure-Track Faculty: {{d.department.tenured}}</li>
+		<li>Non Tenure-Track Faculty:  {{d.department.nonTenured}}</li>
+		<li><h4>Programs:</h4></li>
+		<ul>
+			{% for p in d.programs %}
+			<li> {{p.description}}</li>
+			{% endfor %}
+		</ul>
+	</ul>
+   {% endfor %}
+
+</ul> -->
+
+<table class='ch-datagrid'>
+	<tr>
+		<th>Department</th>
+		<th>Tenure-Track Faculty</th>
+		<th>Non Tenure-Track Faculty</th>
+		<th>Programs</th>
+	</tr>
 	{% for d in departments %}
 	<tr>
-		<td>{{d.description}}</td>
-		<td><div class="arrow"></div></td>
-	</td>
-	<tr>
-		<td colspan="2">
-			<ul>
-				<li>
-					Tenure-Track Faculty: 
-					{{d.tenured}}
-				</li>
-				<li>
-					Non Tenure-Track Faculty:
-					{{d.nonTenured}}
-				</li>
-				{% for p in programs %}
-				<li> {{p.description}}</li>
-				{% endfor%}
-		
-	        </ul>
+		<td>{{d.department.description}}</td>
+		<td>{{d.department.tenured}}</td>
+		<td>{{d.department.nonTenured}}</td>
+		<td>
+			<ul c>
+				{% for p in d.programs %}
+				<li><a href='../programs/{{p.id}}' title='{{p.description}}'>
+					{{p.description}}</a></li>
+				{% endfor %}
+			</ul>
 		</td>
 	</tr>
-
-<!-- 	    	<td> <a class='ch-btn ch-btn-small ' 
-			href='/universities/{{u.id}}'
-			title='{{u.description}}'>{{u.description}}</a></td>
- -->
-    {% endfor %}
+	{% endfor %}
 </table>
+
 
 {%endblock%}

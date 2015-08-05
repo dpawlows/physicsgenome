@@ -69,6 +69,10 @@ table {
   padding-bottom: .8em;
 }
 
+ul {
+  padding: 5px 0px 5px 0px;
+}
+
 a{
   color:#2C3176;
   text-decoration:none;

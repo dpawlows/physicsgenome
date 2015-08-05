@@ -1,0 +1,49 @@
+{% extends '_layout.html' %}
+{%block sub_title%}
+<h2>{{program.department.university.description}}</h2>
+<h3>{{program.department.description}} Department</h3>
+<ul><li><h4>{{program.description}} Program<h4></li></ul>
+{%endblock%}
+{%block content%}
+
+
+<table class='ch-datagrid'>
+	<tr>
+		<th>Course</th>
+		<th>Course Type</th>
+		<th>Content</th>
+		<th>Delivery Style</th>
+		<th>Prerequisites</th>
+	</tr>
+	{% for c in courses %}
+	<tr>
+		<td>{{c.code}}</td>
+		<td>{{c.courseType.code}}</td>
+		<td>
+			<ul>
+				{% for con in c.content %}
+				<li>{{con.description}}</li>
+				{% endfor %}
+			</ul>
+		</td>
+		<td>
+			<ul>
+				{% for d in c.delivery %}
+				<li>{{d.description}}</li>
+				{% endfor %}
+			</ul>
+		</td>
+		<td>
+			<ul>
+				{% for p in c.prerequisite %}
+				<li>{{p.description}}</li>
+				{% endfor %}
+			</ul>
+		</td>
+
+	</tr>
+	{% endfor %}
+</table>
+
+
+{%endblock%}

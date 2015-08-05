@@ -27,6 +27,7 @@
 
 </head>
 <body>
+
 	<div class='container'>
 		<div class='header ch-header ch-box'>
 			<h1>
@@ -45,7 +46,9 @@
 			<div class='ch-header'>
 				{%block sub_title%}{%endblock %}
 			</div>
-			{%block content%}{%endblock%}
+			<div class='content'>
+				{%block content%}{%endblock%}
+			</div>
 		</div>
 	</div>
 </body>

@@ -27,17 +27,38 @@ class UniversityView(TemplateView):
 
 		context.update(dict(
 			university=university,
-			departments=departments,
-			programs=self.get_programs(departments)
+			departments=self.get_departmentInfo(departments)
 			))
 
 		return self.render_to_response(context)
 
-	def get_programs(self,departments):
+	def get_departmentInfo(self,departments):
 		#Need all programs from all departments at the university.  Don't know how many departments!
 	
 		predicates = [('department__id',x.id) for x in departments] 
 		query_list = [Q(pred) for pred in predicates]
+		result = []
+		for i in range(len(departments)):
+			result.append(dict(
+				department=departments[i],
+				programs=M.Program.objects.filter(query_list[i]),
+				))
 
-		return M.Program.objects.filter(reduce(operator.or_, query_list))
+		
+		return result	
+		# return M.Program.objects.filter(reduce(operator.or_, query_list))
 
+class ProgramView(TemplateView):
+	template_name = 'reports/program.html'
+
+	def get(self, request, *args, **kwargs):
+		context = self.get_context_data(**kwargs)
+		program = M.Program.objects.get(pk=kwargs['program_id'])
+		courses = M.Course.objects.filter(programs__id=program.id)
+		pdb.set_trace()
+		context.update(dict(
+			program=program,
+			courses=courses,
+			))
+
+		return self.render_to_response(context)
