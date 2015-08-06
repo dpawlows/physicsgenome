@@ -55,10 +55,12 @@ class ProgramView(TemplateView):
 		context = self.get_context_data(**kwargs)
 		program = M.Program.objects.get(pk=kwargs['program_id'])
 		courses = M.Course.objects.filter(programs__id=program.id)
-		pdb.set_trace()
+
 		context.update(dict(
 			program=program,
 			courses=courses,
 			))
+
+
 
 		return self.render_to_response(context)

@@ -18,25 +18,25 @@
 	{% for c in courses %}
 	<tr>
 		<td>{{c.code}}</td>
-		<td>{{c.courseType.code}}</td>
+		<td>{{c.courseType.description}}</td>
 		<td>
 			<ul>
-				{% for con in c.content %}
+				{% for con in c.content.all %}
 				<li>{{con.description}}</li>
 				{% endfor %}
 			</ul>
 		</td>
 		<td>
 			<ul>
-				{% for d in c.delivery %}
+				{% for d in c.delivery.all %}
 				<li>{{d.description}}</li>
 				{% endfor %}
 			</ul>
 		</td>
 		<td>
 			<ul>
-				{% for p in c.prerequisite %}
-				<li>{{p.description}}</li>
+				{% for p in c.prerequisite.all %}
+				<li>{{p.courseType.description}}</li>
 				{% endfor %}
 			</ul>
 		</td>
