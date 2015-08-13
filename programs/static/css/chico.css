@@ -1499,7 +1499,9 @@ form legend, .ch-form legend {
     display: block;
 }
 form .ch-form-error, form .error, form .error {
-    border: 1px solid #c62026;
+    /*color: #c62026;*/
+    border-left: 2px solid #c62026;
+    padding-left: 5px;
 }
 form .ch-form-error:focus, form .error:focus, form .ch-form-error:focus {
     border: 2px solid #c00;

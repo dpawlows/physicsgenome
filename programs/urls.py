@@ -7,5 +7,5 @@ urlpatterns = [
 	url(r'^reports/(universities)/(?P<university_id>\d+)/?$',UniversityView.as_view()),
 	url(r'^reports/(programs)/(?P<program_id>\d+)/?$',ProgramView.as_view()),
 	url(r'^register/?$',RegisterView.as_view()),
-	url(r'^registration_success/(P<user_id>?$',RegistrationSuccess.as_view()),
+	url(r'^registration_success/(P<user_id>\d+)/?$',RegistrationSuccess.as_view()),
 ]
