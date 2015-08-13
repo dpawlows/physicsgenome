@@ -1,0 +1,23 @@
+{% extends '_layout.html' %}
+{%block content%}
+
+<div class='dashboard'>
+
+<form action="/programs/register/" method="post">
+	{% csrf_token %}
+	<h2>Registration</h2>
+	<p>If you would like to contribute to the physics genome project, please register here.  The 
+		administrator will respond to your request.</p>
+	
+
+	{{form.as_p}}
+	<input type='submit'>
+	<!-- <p>If you have any issues with registration, please 
+		email <a href="mailto:dpawlows@emich.edu">Dave 
+		Pawlowski</a>.</p> -->
+</form> 
+
+
+</div>
+
+{%endblock%}
