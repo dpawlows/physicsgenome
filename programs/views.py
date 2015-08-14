@@ -79,7 +79,6 @@ class RegisterView(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		form = RegistrationForm(request.POST)
-		
 		if form.is_valid():
 			user = form.save()
 			context = self.get_context_data(**kwargs)

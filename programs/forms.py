@@ -4,6 +4,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+import pdb
+
+class AdminUser(models.Model):
+	user = models.OneToOneField(User)
+	universityAffiliation = forms.CharField(label='University Affiliation',max_length=80,required = True)
+
+
+
 class RegistrationForm(UserCreationForm):
 	error_css_class="error"
 	required_css_class="required"
@@ -11,19 +19,28 @@ class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	first_name = forms.CharField(max_length=80,required = False)
 	last_name = forms.CharField(max_length=80,required = False)
-	university_affil = forms.CharField(max_length=80,required = True)
+	# university_affil = forms.CharField(label='University Affiliation',max_length=80,required = True)
 
 	class Meta:
 		model = User
 		fields = ('username','email','password1','password2')
 
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		try:
+			User._default_manager.get(email=email)
+		except User.DoesNotExist:
+			return email
+		raise forms.ValidationError('The entered email already exists')
+
 	def save(self,commit = True):
-		user = super(RegisterForm, self).save(commit = False)
+		user = super(RegistrationForm, self).save(commit = False)
 		user.email = self.cleaned_data['email']
 		user.first_name = self.cleaned_data['first_name']
 		user.last_name = self.cleaned_data['last_name']
 		user.university_affil = self.cleaned_data['university_affil']
 
+		pdb.set_trace()
 		if commit:
 			user.save()
 
