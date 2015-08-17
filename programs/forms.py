@@ -1,12 +1,15 @@
 from django import forms
+from django.db import models
+
 # from django.forms import Textarea,TextInput
 # from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
 import pdb
 
-class AdminUser(models.Model):
+class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	universityAffiliation = forms.CharField(label='University Affiliation',max_length=80,required = True)
 
@@ -19,6 +22,7 @@ class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	first_name = forms.CharField(max_length=80,required = False)
 	last_name = forms.CharField(max_length=80,required = False)
+	
 	# university_affil = forms.CharField(label='University Affiliation',max_length=80,required = True)
 
 	class Meta:
@@ -38,13 +42,15 @@ class RegistrationForm(UserCreationForm):
 		user.email = self.cleaned_data['email']
 		user.first_name = self.cleaned_data['first_name']
 		user.last_name = self.cleaned_data['last_name']
-		user.university_affil = self.cleaned_data['university_affil']
+		user_profile = UserProfile(user=user,
+			universityAffiliation=self.cleaned_data['universityAffiliation'],
+			)
 
 		pdb.set_trace()
 		if commit:
 			user.save()
 
-		return user
+		return user, user_profile
 
 
 
