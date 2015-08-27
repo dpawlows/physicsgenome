@@ -3,20 +3,48 @@
 
 <div class='dashboard'>
 
+<div class="form2">
 <form action="/programs/register/" method="post">
 	{% csrf_token %}
 	<h2>Registration</h2>
 	<p>If you would like to contribute to the physics genome project, please register here.  The 
-		administrator will respond to your request.</p>
+		administrator will respond to your request.  All fields are required.</p>
 	
 
-	{{form.as_p}}
-	<input type='submit'>
+	<!-- {{form.as_p}} -->
+	
+		<!-- <label for="id_username">Username:</label> -->
+		
+			{{form.first_name}}
+			{{form.first_name.errors}}
+
+			{{form.last_name}}
+			{{form.last_name.errors}}</li>
+
+			{{form.username}}
+			{{form.username.errors}}
+
+			
+
+			{{form.email}}
+			{{form.email.errors}}
+
+			{{form.password1}}
+			{{form.password1.errors}}
+
+			{{form.password2}}
+			{{form.password2.errors}}
+
+			{{universityAffiliation}}
+			{{universityAffiliation.errors}}
+		
+
+	<input type='submit' class='form1'>
 	<!-- <p>If you have any issues with registration, please 
 		email <a href="mailto:dpawlows@emich.edu">Dave 
 		Pawlowski</a>.</p> -->
 </form> 
-
+</div>
 
 </div>
 

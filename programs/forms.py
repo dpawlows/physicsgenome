@@ -20,10 +20,19 @@ class RegistrationForm(UserCreationForm):
 	required_css_class="required"
 
 	email = forms.EmailField(required=True)
-	first_name = forms.CharField(max_length=80,required = False)
-	last_name = forms.CharField(max_length=80,required = False)
+	first_name = forms.CharField(max_length=80,required = True)
+	last_name = forms.CharField(max_length=80,required = True)
 	
 	# university_affil = forms.CharField(label='University Affiliation',max_length=80,required = True)
+	def __init__(self, *args, **kwargs):
+		super(RegistrationForm, self).__init__(*args, **kwargs)
+		self.fields['first_name'].widget.attrs.update({'placeholder' : 'first name'})
+		self.fields['last_name'].widget.attrs.update({'placeholder' : 'last name'})
+		self.fields['username'].widget.attrs.update({'placeholder' : 'username'})
+		self.fields['email'].widget.attrs.update({'placeholder' : 'email'})
+		self.fields['password1'].widget.attrs.update({'placeholder' : 'password'})
+		self.fields['password2'].widget.attrs.update({'placeholder' : 'verify password'})
+		# self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'Your University Affiliation*'})
 
 	class Meta:
 		model = User
@@ -35,7 +44,7 @@ class RegistrationForm(UserCreationForm):
 			User._default_manager.get(email=email)
 		except User.DoesNotExist:
 			return email
-		raise forms.ValidationError('The entered email already exists')
+		raise forms.ValidationError('The entered email already exists.')
 
 	def save(self,commit = True):
 		user = super(RegistrationForm, self).save(commit = False)
@@ -46,7 +55,7 @@ class RegistrationForm(UserCreationForm):
 			universityAffiliation=self.cleaned_data['universityAffiliation'],
 			)
 
-		pdb.set_trace()
+		# pdb.set_trace()
 		if commit:
 			user.save()
 

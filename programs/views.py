@@ -90,6 +90,7 @@ class RegisterView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		form = RegistrationForm()
+		# pdb.set_trace()
 		return self.render(request,form)
 
 
@@ -99,7 +100,7 @@ class RegistrationSuccess(TemplateView):
 
 	def get(self,request, *args, **kwargs):
 		context = self.get_context_data(**kwargs)
-		pdb.set_trace()
+		# pdb.set_trace()
 		user = User.objects.get(pk=kwargs('user_id'))
 
 		return self.render_to_response(context)
