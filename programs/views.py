@@ -79,10 +79,11 @@ class RegisterView(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		form = RegistrationForm(request.POST)
+		# pdb.set_trace()
 		if form.is_valid():
-			user = form.save()
+			user, user_profile = form.save()
 			context = self.get_context_data(**kwargs)
-			context.update(dict(user=user
+			context.update(dict(user=user,user_profile=user_profile
 				))
 			return self.render_to_response(context)
 		else:

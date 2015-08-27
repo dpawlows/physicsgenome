@@ -22,8 +22,8 @@ class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 	first_name = forms.CharField(max_length=80,required = True)
 	last_name = forms.CharField(max_length=80,required = True)
-	
-	# university_affil = forms.CharField(label='University Affiliation',max_length=80,required = True)
+	universityAffiliation = forms.CharField(label='University Affiliation',max_length=80,required = True)
+
 	def __init__(self, *args, **kwargs):
 		super(RegistrationForm, self).__init__(*args, **kwargs)
 		self.fields['first_name'].widget.attrs.update({'placeholder' : 'first name'})
@@ -32,6 +32,7 @@ class RegistrationForm(UserCreationForm):
 		self.fields['email'].widget.attrs.update({'placeholder' : 'email'})
 		self.fields['password1'].widget.attrs.update({'placeholder' : 'password'})
 		self.fields['password2'].widget.attrs.update({'placeholder' : 'verify password'})
+		self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'University Affiliation'})
 		# self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'Your University Affiliation*'})
 
 	class Meta:
@@ -50,14 +51,14 @@ class RegistrationForm(UserCreationForm):
 		user = super(RegistrationForm, self).save(commit = False)
 		user.email = self.cleaned_data['email']
 		user.first_name = self.cleaned_data['first_name']
-		user.last_name = self.cleaned_data['last_name']
-		user_profile = UserProfile(user=user,
-			universityAffiliation=self.cleaned_data['universityAffiliation'],
-			)
+		user.last_name = self.cleaned_data['last_name']		
 
-		# pdb.set_trace()
 		if commit:
 			user.save()
+			user_profile = UserProfile(user=user)
+			user_profile.universityAffiliation = self.cleaned_data[
+			'universityAffiliation']
+			user_profile.save()
 
 		return user, user_profile
 
