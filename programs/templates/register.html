@@ -7,14 +7,15 @@
 <form action="/programs/register/" method="post">
 	{% csrf_token %}
 	<h2>Registration</h2>
-	<p>If you would like to contribute to the physics genome project, please register here.  The 
-		administrator will respond to your request.  All fields are required.</p>
-	
+	<p>If you would like to contribute to the physics genome project, please register here.  The
+		administrator will respond to your request.</p>
+        <p>  All fields are required.</p>
+
 
 	<!-- {{form.as_p}} -->
-	
+
 		<!-- <label for="id_username">Username:</label> -->
-		
+
 			{{form.first_name}}
 			{{form.first_name.errors}}
 
@@ -24,7 +25,7 @@
 			{{form.username}}
 			{{form.username.errors}}
 
-			
+
 
 			{{form.email}}
 			{{form.email.errors}}
@@ -38,13 +39,13 @@
 			{{form.universityAffiliation}}
 			{{form.universityAffiliation.errors}}
 <!-- 			<input type="text" name="universityAffiliation" placeholder="University Affiliation">
-		
+
  -->
 	<input type='submit' class='form1'>
-	<!-- <p>If you have any issues with registration, please 
-		email <a href="mailto:dpawlows@emich.edu">Dave 
+	<!-- <p>If you have any issues with registration, please
+		email <a href="mailto:dpawlows@emich.edu">Dave
 		Pawlowski</a>.</p> -->
-</form> 
+</form>
 </div>
 
 </div>

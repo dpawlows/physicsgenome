@@ -1,7 +1,7 @@
 body {
   max-width: none;
  background: #cccccc;
- 
+
 }
 
 table {
@@ -20,13 +20,18 @@ table {
   border-style: solid;
   border-color: #999;
 }
+.headspace{
+    margin-top:20px;
+    margin-left:20px;
+    margin-bottom:50px;
+}
 .ch-box {
   margin-bottom: 0;
   border-radius: 0;
 }
 .header.ch-box {
   /*  background-color: #2C2C2C;*/
-  background-color: #999967;
+  background-color: #797979;
   background-image: -moz-linear-gradient(top, #333333, #222222);
   background-image: -ms-linear-gradient(top, #333333, #222222);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
@@ -82,7 +87,7 @@ a:hover{
 }
 
 #expand { border-collapse:collapse;}
-#expand h4 { margin:0px; padding:0px;}      
+#expand h4 { margin:0px; padding:0px;}
 #expand img { float:right;}
 #expand ul { margin:10px 0 10px 40px; padding:0px;}
 #expand th { font-size:120%; background:repeat-x scroll center left; padding:7px 15px; text-align:left;}
@@ -129,15 +134,15 @@ a:hover{
     outline: 0;
     padding: 7px;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
     background-color: #e8eeef;
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
     margin-bottom: 30px;
-    
+
 }
 .form1 input[type="username"]:focus,
 .form1 input[type="text"]:focus,
@@ -219,7 +224,7 @@ a:hover{
 .form2 input[type="url"],
 .form2 input[type="password"],
 .form2 textarea,
-.form2 select 
+.form2 select
 {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -239,7 +244,7 @@ a:hover{
     resize:none;
     overflow: hidden;
 }
-.form2 input[type="button"], 
+.form2 input[type="button"],
 .form2 input[type="submit"]{
     -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
     -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
@@ -255,7 +260,7 @@ a:hover{
     text-decoration: none;
     text-transform: uppercase;
 }
-.form2 input[type="button"]:hover, 
+.form2 input[type="button"]:hover,
 .form2 input[type="submit"]:hover {
     background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
     background-color:#34CACA;

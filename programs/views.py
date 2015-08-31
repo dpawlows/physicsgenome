@@ -79,11 +79,10 @@ class RegisterView(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		form = CustomUserCreationForm(request.POST)
-		# pdb.set_trace()
+
 		if form.is_valid():
 			user = form.save()
 			context = self.get_context_data(**kwargs)
-			pdb.set_trace()
 			context.update(dict(user=user,
 				))
 			return self.render_to_response(context)
@@ -92,7 +91,6 @@ class RegisterView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		form = CustomUserCreationForm()
-		# pdb.set_trace()
 		return self.render(request,form)
 
 
@@ -106,3 +104,13 @@ class RegistrationSuccess(TemplateView):
 		user = dbUser.objects.get(pk=kwargs('user_id'))
 
 		return self.render_to_response(context)
+
+
+class LoginView(TemplateView):
+    template_name='login.html'
+    def get(self,request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        user = dbUser.objects.get(pk=kwargs('user_id'))
+
+        return self.render_to_response(context)
+

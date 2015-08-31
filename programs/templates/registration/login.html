@@ -1,0 +1,14 @@
+{% extends '_layout.html' %}
+{%block content%}
+{{user}}
+
+{% if form.errors %}
+<p>Your username/pass didnt match</p>
+{% else %}
+Hi!  You are {{user}}
+{% endif %}
+
+
+
+{%endblock%}
+

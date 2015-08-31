@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 	<meta charset="utf-8">
@@ -6,17 +7,17 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
 	<title>Physics Genome Project</title>
-	<link rel="stylesheet" href="{{STATIC_URL}}css/chico-mesh.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="{{STATIC_URL}}css/chico.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="{{STATIC_URL}}css/tablesorter/style.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="{{STATIC_URL}}css/screen.css" type="text/css" media="screen" />
-	
-	<script type='text/javascript' src='{{STATIC_URL}}js/jquery.min.js'></script>
-	<script type='text/javascript' src='{{STATIC_URL}}js/chico.min.js'></script>
-	<script type='text/javascript' src='{{STATIC_URL}}js/jquery.tablesorter.min.js'></script>
-	<script type='text/javascript' src='{{STATIC_URL}}js/jquery.metadata.js'></script>
-	<script type='text/javascript' src='{{STATIC_URL}}js/app.js'></script>
-	<script type='text/javascript' src='{{STATIC_URL}}js/jExpand.js'></script>
+	<link rel="stylesheet" href="{%static 'css/chico-mesh.css' %}" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{%static 'css/chico.css' %}" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{%static 'css/tablesorter/style.css' %}" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{%static 'css/screen.css' %}" type="text/css" media="screen" />
+
+	<script type='text/javascript' src="{% static 'js/jquery.min.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/chico.min.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/jquery.metadata.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/app.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/jExpand.js' %}"></script>
 
 	<script>
 	$(document).ready(function(){
@@ -37,7 +38,21 @@
 			<div class='navigation'>
 				<ul>
 					<li><a href='/' title='Home'>Home</a></li>
-					<li><a href='/sign-out' title='Sign Out'>Sign Out</a></li>
+                    <li>
+                        {{user}}
+                        {% if user.is_authenticated %}
+                        you are logged in!
+                        {% else %}
+                        <h3>Login</h3>
+                        <form action="/programs/login/" method="post" accept-charset="utf-8">
+                                {% csrf_token %}
+                            <label for="email">email</label><input type="text" name="email" value="" id="email" /><br />
+                            <label for="password">Password</label><input type="password" name="password" value="" id="password" />
+                            <p><input type="submit" value="Login"></p>
+                        </form>
+                        {% endif %}
+                    </li>
+					<!-- <li><a href='/sign-out' title='Sign Out'>Sign Out</a></li> -->
 				</ul>
 			</div>
 			<div class='clearfix'></div>

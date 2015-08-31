@@ -32,6 +32,9 @@ TEMPLATE_DIRS = (
 
 AUTH_USER_MODULE = 'programs.User'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'programs.context_processors.include_login_form'
+)
 # Application definition
 
 INSTALLED_APPS = (
