@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.template import RequestContext,loader
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.context_processors import csrf
-from .forms import RegistrationForm
+from .forms import CustomUserCreationForm
 import models as M
 import operator
 import pdb
@@ -37,8 +37,8 @@ class UniversityView(TemplateView):
 
 	def get_departmentInfo(self,departments):
 		#Need all programs from all departments at the university.  Don't know how many departments!
-	
-		predicates = [('department__id',x.id) for x in departments] 
+
+		predicates = [('department__id',x.id) for x in departments]
 		query_list = [Q(pred) for pred in predicates]
 		result = []
 		for i in range(len(departments)):
@@ -47,8 +47,8 @@ class UniversityView(TemplateView):
 				programs=M.Program.objects.filter(query_list[i]),
 				))
 
-		
-		return result	
+
+		return result
 		# return M.Program.objects.filter(reduce(operator.or_, query_list))
 
 class ProgramView(TemplateView):
@@ -78,19 +78,20 @@ class RegisterView(TemplateView):
 		return render_to_response('register.html',context)
 
 	def post(self,request,*args,**kwargs):
-		form = RegistrationForm(request.POST)
+		form = CustomUserCreationForm(request.POST)
 		# pdb.set_trace()
 		if form.is_valid():
-			user, user_profile = form.save()
+			user = form.save()
 			context = self.get_context_data(**kwargs)
-			context.update(dict(user=user,user_profile=user_profile
+			pdb.set_trace()
+			context.update(dict(user=user,
 				))
 			return self.render_to_response(context)
 		else:
 			return self.render(request,form)
 
 	def get(self,request,*args,**kwargs):
-		form = RegistrationForm()
+		form = CustomUserCreationForm()
 		# pdb.set_trace()
 		return self.render(request,form)
 
@@ -102,6 +103,6 @@ class RegistrationSuccess(TemplateView):
 	def get(self,request, *args, **kwargs):
 		context = self.get_context_data(**kwargs)
 		# pdb.set_trace()
-		user = User.objects.get(pk=kwargs('user_id'))
+		user = dbUser.objects.get(pk=kwargs('user_id'))
 
 		return self.render_to_response(context)

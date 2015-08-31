@@ -1,21 +1,16 @@
 from django import forms
 from django.db import models
-
 # from django.forms import Textarea,TextInput
 # from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-
+from programs.models import dbUser
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 import pdb
 
-class UserProfile(models.Model):
-	user = models.OneToOneField(User)
-	universityAffiliation = forms.CharField(label='University Affiliation',max_length=80,required = True)
 
 
-
-class RegistrationForm(UserCreationForm):
+class CustomUserCreationForm(UserCreationForm):
 	error_css_class="error"
 	required_css_class="required"
 
@@ -25,44 +20,57 @@ class RegistrationForm(UserCreationForm):
 	universityAffiliation = forms.CharField(label='University Affiliation',max_length=80,required = True)
 
 	def __init__(self, *args, **kwargs):
-		super(RegistrationForm, self).__init__(*args, **kwargs)
+		super(CustomUserCreationForm, self).__init__(*args, **kwargs)
 		self.fields['first_name'].widget.attrs.update({'placeholder' : 'first name'})
 		self.fields['last_name'].widget.attrs.update({'placeholder' : 'last name'})
-		self.fields['username'].widget.attrs.update({'placeholder' : 'username'})
 		self.fields['email'].widget.attrs.update({'placeholder' : 'email'})
 		self.fields['password1'].widget.attrs.update({'placeholder' : 'password'})
 		self.fields['password2'].widget.attrs.update({'placeholder' : 'verify password'})
-		self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'University Affiliation'})
-		# self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'Your University Affiliation*'})
+		self.fields['universityAffiliation'].widget.attrs.update({'placeholder' : 'university affiliation'})
+		# del self.fields['username']
+
 
 	class Meta:
-		model = User
-		fields = ('username','email','password1','password2')
+		model = dbUser
+		fields = ('email',)
 
-	def clean_email(self):
-		email = self.cleaned_data['email']
-		try:
-			User._default_manager.get(email=email)
-		except User.DoesNotExist:
-			return email
-		raise forms.ValidationError('The entered email already exists.')
+	# def clean_email(self):
+	# 	email = self.cleaned_data['email']
+	# 	try:
+	# 		User._default_manager.get(email=email)
+	# 	except User.DoesNotExist:
+	# 		return email
+	# 	raise forms.ValidationError('The entered email already exists.')
 
-	def save(self,commit = True):
-		user = super(RegistrationForm, self).save(commit = False)
-		user.email = self.cleaned_data['email']
-		user.first_name = self.cleaned_data['first_name']
-		user.last_name = self.cleaned_data['last_name']		
+	# def save(self,commit = True):
+	# 	user = super(RegistrationForm, self).save(commit = False)
+	# 	user.email = self.cleaned_data['email']
+	# 	user.first_name = self.cleaned_data['first_name']
+	# 	user.last_name = self.cleaned_data['last_name']
 
-		if commit:
-			user.save()
-			user_profile = UserProfile(user=user)
-			user_profile.universityAffiliation = self.cleaned_data[
-			'universityAffiliation']
-			user_profile.save()
-
-		return user, user_profile
+	# 	if commit:
+	# 		user.save()
+	# 		user_profile = UserProfile(user=user)
+	# 		user_profile.universityAffiliation = self.cleaned_data[
+	# 		'universityAffiliation']
+	# 		user_profile.save()
 
 
+	# 	return user, user_profile
+
+class CustomUserChangeForm(UserChangeForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    password hash display field.
+    """
+
+    def __init__(self, *args, **kargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kargs)
+        # del self.fields['username']
+
+    class Meta:
+        model = dbUser
+        fields = ('email',)
 
 # class RegisterForm(forms.ModelForm):
 # 	error_css_class="error"
@@ -101,16 +109,16 @@ class RegistrationForm(UserCreationForm):
 
 # 		if Person.objects.filter(last_name=lastname).count() >= 1 and Person.objects.filter(first_name=firstname).count() >= 1:
 # 		 	raise ValidationError('This user already exists.')
-		
+
 # 	   	if lenabstract == 0 and presentation:
 # 	   	 		raise ValidationError('You say you want to present, but you\
 # 	   	 			left out your abstract!')
 # 	   	if lenabstract > 0 and not presentation:
 # 	   	 		cleaned_data['presentation'] = True
-   	 	
-   	 	
+
+
 #    	 	return cleaned_data
-	
+
 # 	def clean_email(self):
 # 		data =  self.cleaned_data['email']
 # 		if Person.objects.filter(email=data).count() >= 1:

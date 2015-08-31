@@ -1,6 +1,9 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from programs.models import *
+from programs.forms import CustomUserCreationForm, CustomUserChangeForm
 import pdb
 
 class ProgramAdmin(admin.ModelAdmin):
@@ -24,7 +27,7 @@ class ProgramAdmin(admin.ModelAdmin):
 
 	def add_view(self,request,extra_content=None):
 
-		self.exclude = ('code',)		
+		self.exclude = ('code',)
 		return super(ProgramAdmin,self).add_view(request)
 
 class ProgramInline(admin.TabularInline):
@@ -69,12 +72,12 @@ class UniversityAdmin(admin.ModelAdmin):
 
 	def add_view(self,request,extra_content=None):
 
-		self.exclude = ('code',)		
+		self.exclude = ('code',)
 		return super(UniversityAdmin,self).add_view(request)
 
 
 class CourseForm(forms.ModelForm):
-	
+
 	class Meta:
 		Model = Course
 
@@ -106,7 +109,28 @@ class CourseAdmin(admin.ModelAdmin):
 		obj.save()
 
 
+class dbAdmin(UserAdmin):
+	fieldsets = (
+		(None, {'fields': ('email', 'password')}),
+		(_('Personal info'), {'fields': ('first_name', 'last_name')}),
+		(_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+			'groups', 'user_permissions')}),
+		(_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+		)
 
+	add_fieldsets = (
+		(None, {
+			'classes': ('wide',),
+			'fields': ('email', 'password1', 'password2')}
+			),
+		)
+	form = CustomUserChangeForm
+	add_form = CustomUserCreationForm
+	list_display = ('email', 'first_name', 'last_name', 'is_staff')
+	search_fields = ('email', 'first_name', 'last_name')
+	ordering = ('email',)
+
+admin.site.register(dbUser, dbAdmin)
 admin.site.register(University,UniversityAdmin)
 admin.site.register(Program,ProgramAdmin)
 admin.site.register(Department,DepartmentAdmin)
