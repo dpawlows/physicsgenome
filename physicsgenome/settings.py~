@@ -26,7 +26,11 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# TEMPLATE_DIRS = (
+#    os.path.join(BASE_DIR, 'templates'),
+#     )
 AUTH_USER_MODEL = 'programs.dbUser'
+
 
 TEMPLATES = [
     {
@@ -47,11 +51,10 @@ TEMPLATES = [
         },
     },
 ]
-
 # Application definition
 
 INSTALLED_APPS = (
-    'nested_inlines',
+    'super_inlines',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'physicsgenome',                      # Or path to database file if using sqlite3.
         'USER': 'pgenome',                      # Not used with sqlite3.
-        'PASSWORD': 'need the pw',                  # Not used with sqlite3.
+        'PASSWORD': 'pgewl3#tajd#5jd',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -106,5 +109,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
+
+
